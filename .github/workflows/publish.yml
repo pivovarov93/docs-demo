@@ -1,0 +1,24 @@
+name: Publish to Confluence
+
+on:
+  push:
+    branches: [master]
+    paths: ['docs/**']
+  workflow_dispatch:
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Publish
+        env:
+          MARK_BASE_URL: ${{ secrets.CONFLUENCE_URL }}
+          MARK_USERNAME: ${{ secrets.CONFLUENCE_USER }}
+          MARK_PASSWORD: ${{ secrets.CONFLUENCE_TOKEN }}
+        run: |
+          docker run --rm -v "$PWD:/work" -w /work \
+            -e MARK_BASE_URL -e MARK_USERNAME -e MARK_PASSWORD \
+            kovetskiy/mark:v16.21.0 \
+            mark -f "docs/*.md" --version-message "GitHub commit ${GITHUB_SHA::7}"
