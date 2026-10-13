@@ -1,0 +1,24 @@
+@startuml
+participant "Процесс DemoHub" as P
+participant "demo-fleet-adapter" as A
+participant "AuthGate" as G
+participant "RentPoint API" as R
+
+P -> A : Вызов адаптера с входными параметрами
+A -> A : Валидация запроса
+alt Параметры некорректны
+    A --> P : outcome = FAILED
+else Параметры корректны
+    A -> A : Маппинг в запрос createBooking
+    A -> G : Получить токен доступа
+    G --> A : accessKey
+    A -> R : createBooking
+    alt Статус 201
+        R --> A : bookingRef, deepLink
+        A --> P : outcome = OK
+    else Статус 400–599
+        R --> A : faults[]
+        A --> P : outcome = FAILED
+    end
+end
+@enduml
