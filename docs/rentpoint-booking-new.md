@@ -237,7 +237,7 @@ b. иначе — **альтернативный сценарий**
 | salesChannel | Да | :STR: | Код канала продаж | WEB01<br/>Для партнёров — PARTNER02 (должен приходить из заказа) |
 | assignedAgent.handle | Нет | :STR: | Логин менеджера | m.ivanova |
 | assignedAgent.realm | Нет | :STR: | Домен учётной записи менеджера | NORTH<br/>SOUTH |
-| assignedAgent.outlet | Нет | :STR: | Код офиса выдачи | ZLG1 |
+| assignedAgent.outlet | Нет | :STR: | Код московского офиса выдачи | ZLG1 |
 | assignedAgent.areaNo | Нет | :STR: | Код региона офиса | 50 |
 | assignedAgent.crmRole | Нет | :STR: | Роль менеджера в CRM | CRM:FLEET_SALES |
 
