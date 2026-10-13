@@ -12,6 +12,17 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '21'
+
+      - name: Render PlantUML
+        run: |
+          curl -sSL -o plantuml.jar \
+            https://github.com/plantuml/plantuml/releases/download/v1.2026.8/plantuml-1.2026.8.jar
+          java -jar plantuml.jar -failfast2 -tpng -charset UTF-8 "docs/**/*.puml"
+
       - name: Publish
         env:
           MARK_BASE_URL: ${{ secrets.CONFLUENCE_URL }}
