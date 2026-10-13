@@ -43,30 +43,7 @@
 
 ## Алгоритм работы
 
-```mermaid
-sequenceDiagram
-    participant P as Процесс DemoHub
-    participant A as demo-fleet-adapter
-    participant G as AuthGate
-    participant R as RentPoint API
-    P->>A: Вызов адаптера с входными параметрами
-    A->>A: Валидация запроса
-    alt Параметры некорректны
-        A-->>P: outcome = FAILED
-    else Параметры корректны
-        A->>A: Маппинг в запрос createBooking
-        A->>G: Получить токен доступа
-        G-->>A: accessKey
-        A->>R: createBooking
-        alt Статус 201
-            R-->>A: bookingRef, deepLink
-            A-->>P: outcome = OK
-        else Статус 400–599
-            R-->>A: faults[]
-            A-->>P: outcome = FAILED
-        end
-    end
-```
+![Последовательность создания бронирования](diagrams/booking-create.png)
 
 **Алгоритм**
 
