@@ -12,7 +12,7 @@ else Параметры корректны
     A -> A : Маппинг в запрос createBooking
     A -> G : Получить токен доступа
     G --> A : accessKey
-    A -> R : createBookingV2
+    A -> R : createBooking
     alt Статус 201
         R --> A : bookingRef, deepLink
         A --> P : outcome = OK
